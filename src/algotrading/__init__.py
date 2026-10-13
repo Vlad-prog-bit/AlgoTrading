@@ -1,6 +1,7 @@
 """AlgoTrading: каркас исследовательского проекта."""
 import asyncio
 from parser.report_parser import parse_companies
+from parser.video_parser import video_parser
 
 COMPANIES = {
     "sber": 3043,
@@ -15,7 +16,7 @@ async def start_parser():
     функций парсинга
     '''
     report_types=(2,3,4)
-    years=[2025, 2024]
+    years=[2024]
     companies_to_pars = ["sber","tbank"]
     return await parse_companies(
         companies={name: COMPANIES[name] for name in companies_to_pars},
@@ -24,3 +25,4 @@ async def start_parser():
     )
 if __name__ == '__main__':
     asyncio.run(start_parser())
+    video_parser(count=2,topic='финансовая отчетность МСФО анали')
