@@ -2,6 +2,7 @@
 import asyncio
 from parser.report_parser import parse_companies
 from parser.video_parser import video_parser
+from preprocessing.transcript import transcript
 
 COMPANIES = {
     "sber": 3043,
@@ -26,3 +27,4 @@ async def start_parser():
 if __name__ == '__main__':
     asyncio.run(start_parser())
     video_parser(count=2,topic='финансовая отчетность МСФО анали')
+    transcript()
