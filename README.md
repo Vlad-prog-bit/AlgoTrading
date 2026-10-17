@@ -11,7 +11,7 @@ The project currently focuses on **data collection and speech transcription**. S
 - **Archive extraction:** validate ZIP archives and destination paths before extraction. Successfully extracted ZIP files are deleted; archives that fail validation are retained.
 - **YouTube search and audio downloads:** search by topic, download audio, and convert it to MP3 at a target bitrate of 128 kbps using yt-dlp and FFmpeg.
 - **Audio metadata:** maintain `metadataes.json` with video IDs, source URLs, titles, channels, descriptions, upload dates, and durations. A download archive tracks previously downloaded audio.
-- **Speech transcription:** load Whisper `medium` once per batch, use MPS when available, and save Russian transcripts as TXT and JSON with segment timestamps.
+- **Speech transcription:** use MLX Whisper `medium` on Apple Silicon with a model cached across the batch, and save Russian transcripts as TXT and JSON with segment timestamps.
 
 ## Workflow
 
@@ -81,10 +81,10 @@ For notebook progress widgets, optionally install `ipywidgets` in the notebook e
 - The default report collector expects Yandex Browser at `/Applications/Yandex.app/Contents/MacOS/Yandex`.
 - Chromium is also supported by the report collector. Install it with `python -m playwright install chromium` and pass `browser_name="chromium"` to `parse_companies`.
 - YouTube extraction uses Deno. With Homebrew, install it using `brew install deno`. The audio downloader currently expects `/opt/homebrew/bin/deno`; adjust the code if your installation differs.
-- `imageio-ffmpeg` supplies the FFmpeg executable used for MP3 conversion. Whisper calls `ffmpeg` by name, so it must also be available on `PATH`, normally through `.venv/bin/ffmpeg` after environment activation.
+- `imageio-ffmpeg` supplies the FFmpeg executable used for MP3 conversion. The transcription module also uses this executable directly to decode audio, without requiring a system FFmpeg installation.
 - The browser setup optionally reads `Russian_Trusted_CA.pem` from the project root through `NODE_EXTRA_CA_CERTS`. Use only certificates from a verified source. The file is not required for every source or browser configuration.
 
-Whisper downloads its model weights on first use to `Models/whisper`. Installing the Python dependencies does not download those weights.
+MLX Whisper downloads `mlx-community/whisper-medium-mlx` on first use to `Models/whisper-mlx`. Previously downloaded PyTorch `.pt` weights are not used by this backend. Installing the Python dependencies does not download those weights.
 
 ## Running the pipeline
 
@@ -110,7 +110,6 @@ The entry point initiates network downloads and model inference. A failure in an
 - Website access and available YouTube formats depend on network conditions and upstream service changes. Browser automation does not guarantee access.
 - `downloaded_audio.txt` tracks completed downloads, not whether files still exist. A manually deleted MP3 may still be skipped on a later run.
 - Transcription currently processes the metadata list without a completed-transcript checkpoint. Re-running may transcribe the same audio and overwrite outputs.
-- The current transcript saver appends `.mp3` to a name that already includes it. Outputs can therefore be named `<video_id>.mp3.txt` and `<video_id>.mp3.json`, and the generated source URL can contain an extra `.mp3`. This naming issue needs correction before indexing transcripts.
 - `parse_companies` currently returns the result of archive extraction rather than its collected results dictionary. Download details remain in the saved manifests.
 - Whisper can misrecognize figures, percentages, company names, and financial terminology. Validate samples against the original audio before using transcripts for research.
 
@@ -131,3 +130,13 @@ Keep source URLs, reporting periods, and actual publication dates. A reporting p
 Audio, reports, transcripts, model weights, browser profiles, and the local environment are excluded from Git by the current ignore rules. Keep backups separately; Git only protects tracked and committed files.
 
 This project is under development and intended for research and learning.
+
+## MLX transcription
+
+On Apple Silicon, run transcription separately from the project root:
+
+```bash
+PYTHONPATH=src python -m preprocessing.transcript
+```
+
+The module uses MLX Metal and FP16, reads `data/audio/metadataes.json`, and saves `<video_id>.txt` and `<video_id>.json` in `data/transcripts`. One model is cached across files; unused MLX buffers are cleared after each file. The model remains loaded for the batch. Stop the process to release it. Initial setup requires Internet access for the MLX checkpoint; subsequent cached runs are local. This backend requires native arm64 Python on macOS with a Metal GPU.

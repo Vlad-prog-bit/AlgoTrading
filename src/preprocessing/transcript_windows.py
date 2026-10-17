@@ -12,11 +12,11 @@ def download_model_whisper():
         "medium",
         download_root=str(root / "Models/whisper")
     )
-    if torch.backends.mps.is_available():
-        model = model.to("mps")
-        print("MPS доступен")
+    if torch.backends.cuda.is_available():
+        model = model.to("cuda")
+        print("CUDA доступен")
     else:
-        print("MPS недоступен")
+        print("CUDA недоступен")
     return model
     
 def preprocessing_of_transcript(audio_path,model):
@@ -64,7 +64,7 @@ def save_trancript(audio_path,save_dir,result,root):
         json.dumps(transcript, ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
-def transcript():
+def transcript_windows():
     root = Path.home() / "Desktop/AlgoTrading"
     json_path = root / "data/audio/metadataes.json"
     audio_path = root / "data/audio/KCNKpyP-DNQ.mp3"
