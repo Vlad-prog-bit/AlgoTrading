@@ -76,29 +76,33 @@ def preprocessing_of_transcript(audio_path, model, root=None):
 
 
 def save_trancript(audio_path, save_dir, result, root=None):
-    """Keep the existing public function name and TXT/JSON output schema."""
     video_id = Path(audio_path).stem
     save_dir = Path(save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
-    output = {
+
+    text_path = save_dir / f"{video_id}.txt"
+    text_path.write_text(result["text"], encoding="utf-8")
+
+    metadata_path = save_dir / "metadata.json"
+    records = (
+        json.loads(metadata_path.read_text(encoding="utf-8"))
+        if metadata_path.exists()
+        else []
+    )
+
+    by_id = {record["video_id"]: record for record in records}
+    by_id[video_id] = {
         "video_id": video_id,
         "source_url": f"https://www.youtube.com/watch?v={video_id}",
-        "language": result["language"],
-        "segments": [
-            {"start": float(segment["start"]), "end": float(segment["end"]),
-             "text": segment["text"].strip()}
-            for segment in result["segments"]
-        ],
+        "text_file": text_path.name,
     }
-    for suffix, content in (
-        (".txt", result["text"]),
-        (".json", json.dumps(output, ensure_ascii=False, indent=2)),
-    ):
-        destination = save_dir / f"{video_id}{suffix}"
-        temporary = destination.with_suffix(destination.suffix + ".part")
-        temporary.write_text(content, encoding="utf-8")
-        temporary.replace(destination)
 
+    temporary = metadata_path.with_suffix(".json.tmp")
+    temporary.write_text(
+        json.dumps(list(by_id.values()), ensure_ascii=False, indent=2),
+        encoding="utf-8",
+    )
+    temporary.replace(metadata_path)
 
 def transcript_mac(root=None, model_repo=None):
     """Process metadata audio sequentially using one cached MLX model."""
@@ -109,7 +113,7 @@ def transcript_mac(root=None, model_repo=None):
         if root is not None
         else Path.home() / "Desktop/AlgoTrading"
     )
-    metadata_path = root / "data/audio/metadataes.json"
+    metadata_path = root / "data/audio/metadata.json"
     records = json.loads(metadata_path.read_text(encoding="utf-8"))
     if isinstance(records, dict):
         records = [records]

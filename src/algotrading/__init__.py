@@ -3,6 +3,7 @@ import asyncio
 from parser.report_parser import parse_companies
 from parser.video_parser import video_parser
 import platform
+from preprocessing.text_reader import process_reports
 system = platform.system()
 
 COMPANIES = {
@@ -34,3 +35,11 @@ if __name__ == '__main__':
     else:
         from preprocessing.transcript_windows import transcript_windows
         transcript_windows()
+    process_reports(
+        companies=["sber", "tbank"],
+        report_types=[
+            "annual_reports",
+            "financial_statements",
+            "consolidated_reports",
+    ],
+    )

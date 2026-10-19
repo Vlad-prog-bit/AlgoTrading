@@ -1,5 +1,4 @@
 from pathlib import Path
-
 import imageio_ffmpeg
 from tqdm.auto import tqdm
 from yt_dlp import YoutubeDL
@@ -89,7 +88,7 @@ def video_parser(topic = 'финансовая отчетность МСФО а�
                 "duration": info.get("duration"),
             }
 
-            metadata_path = save_dir / "metadataes.json"
+            metadata_path = save_dir / "metadata.json"
 
             if metadata_path.exists():
                 records = json.loads(metadata_path.read_text(encoding="utf-8"))

@@ -1,0 +1,522 @@
+[
+  {
+    "id": "finance_01_original",
+    "fact_group": "finance_01",
+    "variant": "original",
+    "question": "Как первоначальный взнос отражается в балансе?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "В активах баланса у нас деньги, в пассивах наш капитал."
+    ]
+  },
+  {
+    "id": "finance_01_paraphrase",
+    "fact_group": "finance_01",
+    "variant": "paraphrase",
+    "question": "Куда в балансе попадают деньги, внесённые собственником при старте?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "В активах баланса у нас деньги, в пассивах наш капитал."
+    ]
+  },
+  {
+    "id": "finance_02_original",
+    "fact_group": "finance_02",
+    "variant": "original",
+    "question": "Сколько денег осталось после закупки и первых расходов?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "100 тысяч минус 25 – 75."
+    ]
+  },
+  {
+    "id": "finance_02_paraphrase",
+    "fact_group": "finance_02",
+    "variant": "paraphrase",
+    "question": "Какой остаток денежных средств получился после первых затрат и приобретения запасов?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "100 тысяч минус 25 – 75."
+    ]
+  },
+  {
+    "id": "finance_03_original",
+    "fact_group": "finance_03",
+    "variant": "original",
+    "question": "Почему после продажи деньги ещё не поступили?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Да потому что мы отгрузили в отсрочку."
+    ]
+  },
+  {
+    "id": "finance_03_paraphrase",
+    "fact_group": "finance_03",
+    "variant": "paraphrase",
+    "question": "Чем объясняется отсутствие денежного поступления при уже признанной реализации?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Да потому что мы отгрузили в отсрочку."
+    ]
+  },
+  {
+    "id": "finance_04_original",
+    "fact_group": "finance_04",
+    "variant": "original",
+    "question": "Чем баланс отличается от других отчётов по времени?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "это отчеты, которые формируются за интервал, а баланс это срез на дату."
+    ]
+  },
+  {
+    "id": "finance_04_paraphrase",
+    "fact_group": "finance_04",
+    "variant": "paraphrase",
+    "question": "Какой отчёт показывает состояние на дату, а какие описывают период?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "это отчеты, которые формируются за интервал, а баланс это срез на дату."
+    ]
+  },
+  {
+    "id": "finance_05_original",
+    "fact_group": "finance_05",
+    "variant": "original",
+    "question": "Сколько денег осталось после оплаты клиентом?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "105 тысяч рублей остаток денег на конец периода."
+    ]
+  },
+  {
+    "id": "finance_05_paraphrase",
+    "fact_group": "finance_05",
+    "variant": "paraphrase",
+    "question": "Какой конечный остаток денег получился после расчёта покупателя?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "105 тысяч рублей остаток денег на конец периода."
+    ]
+  },
+  {
+    "id": "finance_06_original",
+    "fact_group": "finance_06",
+    "variant": "original",
+    "question": "Какова прибыль бизнеса за весь цикл?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "15 тысяч рублей составили наши операционные расходы на поддержание жизнедеятельности. Читай штанов. И прибыль составила 5 тысяч рублей."
+    ]
+  },
+  {
+    "id": "finance_06_paraphrase",
+    "fact_group": "finance_06",
+    "variant": "paraphrase",
+    "question": "Сколько бизнес заработал чистыми за весь показанный цикл?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "15 тысяч рублей составили наши операционные расходы на поддержание жизнедеятельности. Читай штанов. И прибыль составила 5 тысяч рублей."
+    ]
+  },
+  {
+    "id": "finance_07_original",
+    "fact_group": "finance_07",
+    "variant": "original",
+    "question": "Какие финансовые отчёты автор разбирает вместе?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Отчет о прибылях и убытках или отчет о финансовых результатах, отчет о движении денег, он же cash flow, он же DDS и классический баланс."
+    ]
+  },
+  {
+    "id": "finance_07_paraphrase",
+    "fact_group": "finance_07",
+    "variant": "paraphrase",
+    "question": "Какие формы отчётности связываются в сквозном примере?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Отчет о прибылях и убытках или отчет о финансовых результатах, отчет о движении денег, он же cash flow, он же DDS и классический баланс."
+    ]
+  },
+  {
+    "id": "finance_08_original",
+    "fact_group": "finance_08",
+    "variant": "original",
+    "question": "Меняется ли отчёт о прибыли при первоначальном вложении денег?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "В отчете о прибылях и убытках не происходит ровным счетом ничего."
+    ]
+  },
+  {
+    "id": "finance_08_paraphrase",
+    "fact_group": "finance_08",
+    "variant": "paraphrase",
+    "question": "Возникает ли прибыль от того, что собственник положил стартовые деньги на счёт?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "В отчете о прибылях и убытках не происходит ровным счетом ничего."
+    ]
+  },
+  {
+    "id": "finance_09_original",
+    "fact_group": "finance_09",
+    "variant": "original",
+    "question": "Какие затраты автор приводит как примеры накладных расходов?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Это наши накладные расходы. Ну, в обычной компании это аренды, зарплаты, рекламы и так далее."
+    ]
+  },
+  {
+    "id": "finance_09_paraphrase",
+    "fact_group": "finance_09",
+    "variant": "paraphrase",
+    "question": "Что в примере относится к расходам на поддержание работы компании?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Это наши накладные расходы. Ну, в обычной компании это аренды, зарплаты, рекламы и так далее."
+    ]
+  },
+  {
+    "id": "finance_10_original",
+    "fact_group": "finance_10",
+    "variant": "original",
+    "question": "Сколько компания потратила на товар?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "5 тысяч рублей мы потратили на расходы компании, 20 тысяч рублей мы потратили на товар."
+    ]
+  },
+  {
+    "id": "finance_10_paraphrase",
+    "fact_group": "finance_10",
+    "variant": "paraphrase",
+    "question": "Какова стоимость приобретённой партии товара?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "5 тысяч рублей мы потратили на расходы компании, 20 тысяч рублей мы потратили на товар."
+    ]
+  },
+  {
+    "id": "finance_11_original",
+    "fact_group": "finance_11",
+    "variant": "original",
+    "question": "Как изменяется форма активов при покупке товара?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "они перетекли из денег в активах в запасы."
+    ]
+  },
+  {
+    "id": "finance_11_paraphrase",
+    "fact_group": "finance_11",
+    "variant": "paraphrase",
+    "question": "Что становится с денежными активами, когда компания закупает товар?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "они перетекли из денег в активах в запасы."
+    ]
+  },
+  {
+    "id": "finance_12_original",
+    "fact_group": "finance_12",
+    "variant": "original",
+    "question": "Из чего состоят активы после закупки товара?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "наши 95 тысяч рублей делятся на 75 тысяч деньги, которые у нас физически есть на счетах. 20 тысяч – это запасы"
+    ]
+  },
+  {
+    "id": "finance_12_paraphrase",
+    "fact_group": "finance_12",
+    "variant": "paraphrase",
+    "question": "Какая часть активов после закупки представлена деньгами, а какая товарами?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "наши 95 тысяч рублей делятся на 75 тысяч деньги, которые у нас физически есть на счетах. 20 тысяч – это запасы"
+    ]
+  },
+  {
+    "id": "finance_13_original",
+    "fact_group": "finance_13",
+    "variant": "original",
+    "question": "Какой убыток отражён в балансе на этапе закупки?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Капитал, как был, так и остался, 100 тысяч рублей первоначально вложенный, но прибыль – минус 5."
+    ]
+  },
+  {
+    "id": "finance_13_paraphrase",
+    "fact_group": "finance_13",
+    "variant": "paraphrase",
+    "question": "Каким оказался финансовый результат первого периода с расходами?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Капитал, как был, так и остался, 100 тысяч рублей первоначально вложенный, но прибыль – минус 5."
+    ]
+  },
+  {
+    "id": "finance_14_original",
+    "fact_group": "finance_14",
+    "variant": "original",
+    "question": "В какой момент в примере возникает выручка?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "товар мы с вами отгрузили, то есть выполнили обязательство, сформировалась выручка"
+    ]
+  },
+  {
+    "id": "finance_14_paraphrase",
+    "fact_group": "finance_14",
+    "variant": "paraphrase",
+    "question": "После какого события компания отражает продажу в отчёте о финансовых результатах?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "товар мы с вами отгрузили, то есть выполнили обязательство, сформировалась выручка"
+    ]
+  },
+  {
+    "id": "finance_15_original",
+    "fact_group": "finance_15",
+    "variant": "original",
+    "question": "Какую сумму выручки компания признала при отгрузке?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "40 тысяч рублей это наша с вами выручка."
+    ]
+  },
+  {
+    "id": "finance_15_paraphrase",
+    "fact_group": "finance_15",
+    "variant": "paraphrase",
+    "question": "Каков размер признанных доходов от реализации партии?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "40 тысяч рублей это наша с вами выручка."
+    ]
+  },
+  {
+    "id": "finance_16_original",
+    "fact_group": "finance_16",
+    "variant": "original",
+    "question": "Какова себестоимость проданного товара?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "По принципу соответствия 20 тысяч рублей это наша себестоимость."
+    ]
+  },
+  {
+    "id": "finance_16_paraphrase",
+    "fact_group": "finance_16",
+    "variant": "paraphrase",
+    "question": "Какая стоимость запасов списывается под выручку?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "По принципу соответствия 20 тысяч рублей это наша себестоимость."
+    ]
+  },
+  {
+    "id": "finance_17_original",
+    "fact_group": "finance_17",
+    "variant": "original",
+    "question": "Где учитывается сумма, которую покупатель ещё не оплатил?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Поэтому в активах баланса мы видим это как дебиторская задолженность."
+    ]
+  },
+  {
+    "id": "finance_17_paraphrase",
+    "fact_group": "finance_17",
+    "variant": "paraphrase",
+    "question": "Как называется актив, возникающий из неоплаченной продажи клиенту?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Поэтому в активах баланса мы видим это как дебиторская задолженность."
+    ]
+  },
+  {
+    "id": "finance_18_original",
+    "fact_group": "finance_18",
+    "variant": "original",
+    "question": "Из чего состоят активы до получения оплаты от клиента?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "наши активы в размере 110 тысяч теперь состоят из 70 тысяч рублей живых денег и 40 тысяч рублей дебиторской задолженности."
+    ]
+  },
+  {
+    "id": "finance_18_paraphrase",
+    "fact_group": "finance_18",
+    "variant": "paraphrase",
+    "question": "Что входит в сумму активов 110 тысяч на этапе ожидания платежа?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "наши активы в размере 110 тысяч теперь состоят из 70 тысяч рублей живых денег и 40 тысяч рублей дебиторской задолженности."
+    ]
+  },
+  {
+    "id": "finance_19_original",
+    "fact_group": "finance_19",
+    "variant": "original",
+    "question": "Что происходит с запасами после отгрузки товара?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "списался со склада и на складе было 20 тысяч, осталось ноль."
+    ]
+  },
+  {
+    "id": "finance_19_paraphrase",
+    "fact_group": "finance_19",
+    "variant": "paraphrase",
+    "question": "Есть ли товар на складе после передачи всей партии покупателю?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "списался со склада и на складе было 20 тысяч, осталось ноль."
+    ]
+  },
+  {
+    "id": "finance_20_original",
+    "fact_group": "finance_20",
+    "variant": "original",
+    "question": "Как рассчитывается накопленная прибыль в 10 тысяч?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "в баланс попадает минус 5 плюс 15, то есть плюс 10."
+    ]
+  },
+  {
+    "id": "finance_20_paraphrase",
+    "fact_group": "finance_20",
+    "variant": "paraphrase",
+    "question": "Почему в балансе показано 10 тысяч прибыли, хотя за последний период заработано 15?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "в баланс попадает минус 5 плюс 15, то есть плюс 10."
+    ]
+  },
+  {
+    "id": "finance_21_original",
+    "fact_group": "finance_21",
+    "variant": "original",
+    "question": "Почему прибыль есть, а денег от продажи ещё нет?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Прибыль 15, а денег нет. А потому что деньги в другом агрегатном состоянии. В данном случае они в дебиторке."
+    ]
+  },
+  {
+    "id": "finance_21_paraphrase",
+    "fact_group": "finance_21",
+    "variant": "paraphrase",
+    "question": "Почему положительный финансовый результат не означает получение денег от покупателя?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Прибыль 15, а денег нет. А потому что деньги в другом агрегатном состоянии. В данном случае они в дебиторке."
+    ]
+  },
+  {
+    "id": "finance_22_original",
+    "fact_group": "finance_22",
+    "variant": "original",
+    "question": "Как меняется задолженность клиента после его оплаты?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Клиент должен был 40 тысяч рублей и он нам их оплатил. Дебиторка было 40, а стрелка вправо стала ноль."
+    ]
+  },
+  {
+    "id": "finance_22_paraphrase",
+    "fact_group": "finance_22",
+    "variant": "paraphrase",
+    "question": "Остаётся ли требование к покупателю, когда он полностью перечислил оплату?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Клиент должен был 40 тысяч рублей и он нам их оплатил. Дебиторка было 40, а стрелка вправо стала ноль."
+    ]
+  },
+  {
+    "id": "finance_23_original",
+    "fact_group": "finance_23",
+    "variant": "original",
+    "question": "Из чего сформированы пассивы в конце всего примера?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "100 тысяч наш капитал и 5 тысяч наша накопленная прибыль."
+    ]
+  },
+  {
+    "id": "finance_23_paraphrase",
+    "fact_group": "finance_23",
+    "variant": "paraphrase",
+    "question": "Какие источники формируют итоговые 105 тысяч пассивов?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "100 тысяч наш капитал и 5 тысяч наша накопленная прибыль."
+    ]
+  },
+  {
+    "id": "finance_24_original",
+    "fact_group": "finance_24",
+    "variant": "original",
+    "question": "Как автор предлагает вычислить рентабельность по прибыли?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "5 тысяч рублей делим на 40 тысяч рублей. Получим не что иное, как рентабельность по прибыли."
+    ]
+  },
+  {
+    "id": "finance_24_paraphrase",
+    "fact_group": "finance_24",
+    "variant": "paraphrase",
+    "question": "Что на что делят, чтобы получить рентабельность по прибыли в этом примере?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "5 тысяч рублей делим на 40 тысяч рублей. Получим не что иное, как рентабельность по прибыли."
+    ]
+  },
+  {
+    "id": "finance_25_original",
+    "fact_group": "finance_25",
+    "variant": "original",
+    "question": "Какие статьи автор сознательно не раскрывает подробно?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Где же налоги, где же зарплаты, где же всякие обязательства. Что-то НДС забыл, ребята."
+    ]
+  },
+  {
+    "id": "finance_25_paraphrase",
+    "fact_group": "finance_25",
+    "variant": "paraphrase",
+    "question": "Какие реальные сложности учёта опущены ради простого объяснения?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Где же налоги, где же зарплаты, где же всякие обязательства. Что-то НДС забыл, ребята."
+    ]
+  },
+  {
+    "id": "finance_26_original",
+    "fact_group": "finance_26",
+    "variant": "original",
+    "question": "Зачем руководителю понимать финансовое состояние компании?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Чтобы принимать правильные решения, своевременные, доверять цифрам. Чтобы анализировать динамику развития и смотреть на план факта."
+    ]
+  },
+  {
+    "id": "finance_26_paraphrase",
+    "fact_group": "finance_26",
+    "variant": "paraphrase",
+    "question": "Как финансовая отчётность помогает принимать управленческие решения?",
+    "video_id": "QEDKMJ8wh-w",
+    "evidence": [
+      "Чтобы принимать правильные решения, своевременные, доверять цифрам. Чтобы анализировать динамику развития и смотреть на план факта."
+    ]
+  }
+]

@@ -21,7 +21,7 @@ def download_model_whisper():
     
 def preprocessing_of_transcript(audio_path,model):
     root = Path.home() / "Desktop/AlgoTrading"
-    json_path = root / "data/audio/metadataes.json"
+    json_path = root / "data/audio/metadata.json"
     matadataes_df = pd.read_json(json_path)
     # Whisper вызывает FFmpeg по имени.
     ffmpeg_dir = root / ".venv/bin"
@@ -39,39 +39,42 @@ def preprocessing_of_transcript(audio_path,model):
     save_dir = root / "data/transcripts"
     save_dir.mkdir(parents=True, exist_ok=True)
     return save_dir,result
-def save_trancript(audio_path,save_dir,result,root):
-    audio_path = root / f"data/audio/{audio_path}.mp3"
-    (save_dir / f"{audio_path.stem}.txt").write_text(
-        result["text"],
-        encoding="utf-8",
-    )  
-    # Текст с таймкодами для будущего RAG.
-    transcript = {
-        "video_id": audio_path.stem,
-        "source_url": f"https://www.youtube.com/watch?v={audio_path.stem}",
-        "language": result["language"],
-        "segments": [
-            {
-                "start": segment["start"],
-                "end": segment["end"],
-                "text": segment["text"].strip(),
-            }
-            for segment in result["segments"]
-        ],
+def save_trancript(audio_path, save_dir, result, root=None):
+    video_id = Path(audio_path).stem
+    save_dir = Path(save_dir)
+    save_dir.mkdir(parents=True, exist_ok=True)
+
+    text_path = save_dir / f"{video_id}.txt"
+    text_path.write_text(result["text"], encoding="utf-8")
+
+    metadata_path = save_dir / "metadata.json"
+    records = (
+        json.loads(metadata_path.read_text(encoding="utf-8"))
+        if metadata_path.exists()
+        else []
+    )
+
+    by_id = {record["video_id"]: record for record in records}
+    by_id[video_id] = {
+        "video_id": video_id,
+        "source_url": f"https://www.youtube.com/watch?v={video_id}",
+        "text_file": text_path.name,
     }
 
-    (save_dir / f"{audio_path.stem}.json").write_text(
-        json.dumps(transcript, ensure_ascii=False, indent=2),
+    temporary = metadata_path.with_suffix(".json.tmp")
+    temporary.write_text(
+        json.dumps(list(by_id.values()), ensure_ascii=False, indent=2),
         encoding="utf-8",
     )
+    temporary.replace(metadata_path)
 def transcript_windows():
     root = Path.home() / "Desktop/AlgoTrading"
     json_path = root / "data/audio/metadataes.json"
     audio_path = root / "data/audio/KCNKpyP-DNQ.mp3"
-    matadataes_df = pd.read_json(json_path)
-    metadataes_df = pd.read_json(json_path)
-    metadataes_df.head()
-    list_of_id = list(metadataes_df['id'])
+    matadatas_df = pd.read_json(json_path)
+    metadata_df = pd.read_json(json_path)
+    metadata_df.head()
+    list_of_id = list(metadata_df['id'])
     model = download_model_whisper()
     for i in tqdm(list_of_id, desc="Транскрибация", unit="файл"):
         save_dir, result = preprocessing_of_transcript(audio_path=i+'.mp3',model=model)

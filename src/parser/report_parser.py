@@ -47,11 +47,36 @@ async def report_parser(
     search_text = normalize(what_looking or '')
     reports = []
     stamp = datetime.now(timezone.utc).strftime('%Y%m%dT%H%M%S%fZ')
-    manifest = save_dir / f'manifest_{stamp}.json'
+    manifest = save_dir / f'metadata.json'
 
     def write_manifest():
-        manifest.write_text(json.dumps(reports, ensure_ascii=False, indent=2), encoding='utf-8')
+        records = (
+            json.loads(manifest.read_text(encoding="utf-8"))
+            if manifest.exists()
+            else []
+        )
 
+        by_url = {record["url"]: record for record in records}
+        for report in reports:
+            previous = by_url.get(report["url"], {})
+
+            # Старый список подходит, только если содержимое архива не изменилось.
+            if (
+                report.get("sha256")
+                and previous.get("sha256") != report["sha256"]
+            ):
+                previous = {
+                    key: value
+                    for key, value in previous.items()
+                    if key != "extracted_files"
+                }
+
+            by_url[report["url"]] = {**previous, **report}
+
+        manifest.write_text(
+            json.dumps(list(by_url.values()), ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
     print(f'Открываю: {page_url}', flush=True)
     try:
         response = await page.goto(page_url, wait_until='domcontentloaded', timeout=60_000)
