@@ -27,14 +27,14 @@ async def start_parser():
         report_types=report_types,  # 2 — годовые, 3 — бухгалтерские, 4 — консолидированные
     )
 if __name__ == '__main__':
-    asyncio.run(start_parser())
-    video_parser(count=2,topic='финансовая отчетность МСФО анали')
-    if system == "Darwin":
-        from preprocessing.transcript_mac import transcript_mac
-        transcript_mac()
-    else:
-        from preprocessing.transcript_windows import transcript_windows
-        transcript_windows()
+    # asyncio.run(start_parser())
+    # video_parser(count=2,topic='финансовая отчетность МСФО анали')
+    #if system == "Darwin":
+    #    from preprocessing.transcript_mac import transcript_mac
+    #    transcript_mac()
+    #else:
+    #    from preprocessing.transcript_windows import transcript_windows
+    #    transcript_windows()
     process_reports(
         companies=["sber", "tbank"],
         report_types=[

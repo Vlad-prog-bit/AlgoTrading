@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 import hashlib
 import json
 import re
@@ -6,7 +7,6 @@ from pypdf import PdfReader
 from docx import Document
 from docx.table import Table
 from docx.text.paragraph import Paragraph
-
 
 def clean_text(text, page_number=None):
     text = re.sub(
@@ -102,7 +102,10 @@ def save_document_text(
         "source_file": str(file_path),
         "source_url": report.get("url"),
         "title": report.get("title"),
-        "period": report.get("period"),
+        "publish_time": datetime.strptime(
+            report["cells"][5 if report_type == "annual_reports" else 4],
+            "%d.%m.%Y",
+        ).date().isoformat(),
         "text_file": txt_path.name,
         "text_path": str(txt_path),
     }
