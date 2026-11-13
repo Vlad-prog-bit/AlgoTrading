@@ -12,51 +12,41 @@ import numpy as np
 from huggingface_hub import snapshot_download
 from tqdm.auto import tqdm
 
-def download_model_whisper(root, model_repo):
-    """Return cached MLX weights; download them on first use.
-
-    mlx_whisper keeps the loaded model in memory across transcribe calls
-    for the same path. PyTorch Whisper .pt weights cannot be used here.
-    """
-    root = Path(root).expanduser()
-    if platform.system() != "Darwin" or platform.machine() != "arm64":
-        raise RuntimeError("MLX-транскрибация требует macOS на Apple Silicon")
-    if not mx.metal.is_available():
-        raise RuntimeError("MLX Metal GPU недоступен")
-    print(f"MLX Metal: {model_repo}", flush=True)
-    return snapshot_download(
-        repo_id=model_repo,
-        cache_dir=str(root / "Models/whisper-mlx"),
-        allow_patterns=["*.json", "*.safetensors", "*.npz"],
-    )
 
 
 def _audio_path(audio_path, root):
-    path = Path(audio_path).expanduser()
-    if not path.is_absolute():
-        path = root / "data/audio" / path
-    if not path.is_file():
-        raise FileNotFoundError(path)
-    return path
+    return audio_path
 
 
-def preprocessing_of_transcript(audio_path, model, root=None):
+def preprocessing_of_transcript(audio_path,
+                                model_path, 
+                                root=None, 
+                                save_path = None):
     """Decode audio with bundled FFmpeg, then transcribe on MLX GPU."""
-    root = (
-        Path(root).expanduser()
-        if root is not None
-        else Path.home() / "Desktop/AlgoTrading"
-    )
-    audio_path = _audio_path(audio_path, root)
+
     command = [
         imageio_ffmpeg.get_ffmpeg_exe(),
-        "-nostdin", "-v", "error", "-threads", "0", "-i", str(audio_path),
-        "-f", "s16le", "-ac", "1", "-acodec", "pcm_s16le", "-ar", "16000", "-",
+        "-nostdin", "-v", "error",
+        "-threads", "0",
+        "-i", str(audio_path),
+        "-f", "s16le",
+        "-ac", "1",
+        "-acodec", "pcm_s16le",
+        "-ar", "16000",
+        "-",
     ]
+
     try:
-        decoded = subprocess.run(command, capture_output=True, check=True).stdout
+        decoded = subprocess.run(
+            command,
+            capture_output=True,
+            check=True,
+        ).stdout
     except subprocess.CalledProcessError as error:
-        raise RuntimeError(error.stderr.decode(errors="replace")) from error
+        raise RuntimeError(
+            error.stderr.decode(errors="replace")
+        ) from error
+
     audio = np.frombuffer(decoded, dtype=np.int16).astype(np.float32) / 32768.0
     del decoded
     if not audio.size:
@@ -64,26 +54,28 @@ def preprocessing_of_transcript(audio_path, model, root=None):
 
     result = mlx_whisper.transcribe(
         audio,
-        path_or_hf_repo=str(model),
+        path_or_hf_repo=str(model_path),
         language="ru",
         task="transcribe",
         fp16=True,
         verbose=False,
     )
-    save_dir = root / "data/transcripts"
-    save_dir.mkdir(parents=True, exist_ok=True)
-    return save_dir, result
+    save_path.mkdir(parents=True, exist_ok=True)
+    return save_path, result
 
 
-def save_trancript(audio_path, save_dir, result, root=None):
+def save_trancript(audio_path, 
+                   save_path,
+                   result, 
+                   root=None, 
+                   topic=None):
     video_id = Path(audio_path).stem
-    save_dir = Path(save_dir)
-    save_dir.mkdir(parents=True, exist_ok=True)
+    save_path.mkdir(parents=True, exist_ok=True)
 
-    text_path = save_dir / f"{video_id}.txt"
+    text_path = save_path / f"{video_id}.txt"
     text_path.write_text(result["text"], encoding="utf-8")
 
-    metadata_path = save_dir / "metadata.json"
+    metadata_path = save_path / "metadata.json"
     records = (
         json.loads(metadata_path.read_text(encoding="utf-8"))
         if metadata_path.exists()
@@ -95,6 +87,7 @@ def save_trancript(audio_path, save_dir, result, root=None):
         "video_id": video_id,
         "source_url": f"https://www.youtube.com/watch?v={video_id}",
         "text_file": text_path.name,
+        "topic": topic,
     }
 
     temporary = metadata_path.with_suffix(".json.tmp")
@@ -104,29 +97,36 @@ def save_trancript(audio_path, save_dir, result, root=None):
     )
     temporary.replace(metadata_path)
 
-def transcript_mac(root=None, model_repo=None):
+def transcript_mac(root=None, 
+                   model_path=None,
+                   save_path = None,
+                   audio_path = None,
+                   metadata_path = None):
     """Process metadata audio sequentially using one cached MLX model."""
-    if model_repo is None:
-        model_repo = "mlx-community/whisper-medium-mlx"
-    root = (
-        Path(root).expanduser()
-        if root is not None
-        else Path.home() / "Desktop/AlgoTrading"
-    )
-    metadata_path = root / "data/audio/metadata.json"
     records = json.loads(metadata_path.read_text(encoding="utf-8"))
     if isinstance(records, dict):
         records = [records]
-    video_ids = list(dict.fromkeys(str(record["id"]) for record in records))
+    source_by_id = {str(record["id"]): record for record in records}
+    video_ids = list(source_by_id)
     if not video_ids:
         print("Нет аудио для транскрибации")
         return
-    model = download_model_whisper(root=root, model_repo=model_repo)
     for video_id in tqdm(video_ids, desc="Транскрибация MLX", unit="файл"):
         try:
-            audio_path = _audio_path(f"{video_id}.mp3", root)
-            save_dir, result = preprocessing_of_transcript(audio_path, model, root=root)
-            save_trancript(audio_path, save_dir, result, root=root)
+            audio_file = Path(audio_path) / f"{video_id}.mp3"
+            save_path, result = preprocessing_of_transcript(
+                audio_path=audio_file,
+                model_path=model_path,
+                root=root,
+                save_path=save_path,
+            )
+            save_trancript(
+                audio_file,
+                save_path,
+                result,
+                root=root,
+                topic=source_by_id[video_id].get("topic"),
+            )
             del result
         finally:
             gc.collect()

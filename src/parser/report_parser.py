@@ -260,7 +260,12 @@ async def browser_session(root=None, browser_name="yandex"):
             await context.close()
 
 
-async def parse_companies(companies, years=None, report_types=(2,), root=None, browser_name="yandex"):
+async def parse_companies(companies, 
+                          years=None, 
+                          report_types=(2,), 
+                          root=None, 
+                          browser_name="yandex",
+                          reports_path = None):
     """Один браузер, один контекст и одна вкладка на весь пакет."""
     for report_type in report_types:
         if report_type not in REPORT_TYPES:
@@ -281,4 +286,4 @@ async def parse_companies(companies, years=None, report_types=(2,), root=None, b
                     root=root,
                 )
                 await asyncio.sleep(2)
-    return unzip()
+    return unzip(reports_path = reports_path)

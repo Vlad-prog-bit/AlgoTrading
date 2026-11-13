@@ -3,10 +3,8 @@ from pathlib import Path
 from zipfile import ZipFile
 
 
-def unzip():
-    reports_dir = Path.home() / "Desktop/AlgoTrading/data/reports"
-
-    for archive_path in sorted(reports_dir.rglob("*.zip")):
+def unzip(reports_path = None):
+    for archive_path in sorted(reports_path.rglob("*.zip")):
         try:
             destination = archive_path.parent.resolve()
             metadata_path = destination / "metadata.json"

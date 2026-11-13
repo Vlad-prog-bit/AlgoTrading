@@ -124,19 +124,22 @@ def save_document_text(
     return txt_path
 
 
-def process_reports( companies, report_types):
-    root = Path().home() / 'Desktop/AlgoTrading'
-    reports_dir = root / "data/reports"
-    texts_dir = root / "data/texts"
-    texts_dir.mkdir(parents=True, exist_ok=True)
+def process_reports( companies, 
+                    report_types,
+                    root,
+                    reports_path,
+                    texts_path,
+                    metadata_path
+                    
+                    ):
+    texts_path.mkdir(parents=True, exist_ok=True)
 
-    metadata_path = texts_dir / "metadata.json"
     processed = set()
 
     for company in companies:
         for report_type in report_types:
             manifest = (
-                reports_dir / report_type / company / "metadata.json"
+                reports_path / report_type / company / "metadata.json"
             )
 
             if not manifest.is_file():
@@ -178,7 +181,7 @@ def process_reports( companies, report_types):
                         txt_path = save_document_text(
                             file_path=file_path,
                             text=text,
-                            save_dir=texts_dir / report_type / company,
+                            save_dir=texts_path / report_type / company,
                             metadata_path=metadata_path,
                             company=company,
                             report_type=report_type,
