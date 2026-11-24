@@ -2,15 +2,13 @@
 import asyncio
 import platform
 from pathlib import Path
-
 from tqdm.auto import tqdm
-
 from embedding.audio_embedding import audio_embedding
 from embedding.text_embedding import text_embedding
 from parser.report_parser import parse_companies
 from parser.video_parser import video_parser
 from preprocessing.text_reader import process_reports
-
+from parser.parser_of_pulse import pulse_parser
 
 system = platform.system()
 '''
@@ -106,63 +104,60 @@ if __name__ == '__main__':
                      topic=topic,
                      save_path=save_path,
                     )
+    pulse_parser(ROOT=root,
+                 DATA_PATH=root / "data/tpulse",
+                 SITEMAPS_PATH=root / "data/tpulse/sitemaps",
+                 PARQUET_PATH=root / "data/tpulse/posts.parquet",
+                 CA_PATH=root / "Russian_Trusted_CA.pem",
+                 CA_BUNDLE=root / "data/tpulse/ca_bundle.pem",
+                 INDEX_URL="https://www.tbank.ru/sitemap/invest/pulse.xml.gz",
+                 limit=1, # Например, 10 для проверки; None — все
+                 REQUEST_DELAY=1,
+                 BATCH_SIZE=100)
+
     if system == "Darwin":
         from preprocessing.transcript_mac import transcript_mac
-        audio_path = root / 'data/audio'
-        model_path = root / "Models/whisper-mlx"
-        save_path = root / "data/transcripts"
-        metadata_path = root / "data/audio/metadata.json"
+    
         transcript_mac(
             root = root,
-            audio_path = audio_path,
-            model_path = model_path,
-            save_path = save_path,
-            metadata_path = metadata_path
+            audio_path = root / 'data/audio',
+            model_path = root / "Models/whisper-mlx",
+            save_path = root / "data/transcripts",
+            metadata_path = root / "data/audio/metadata.json"
         )
     else:
         from preprocessing.transcript_windows import transcript_windows
         transcript_windows()
-    reports_path = root / "data/reports"
-    texts_path = root / "data/texts"
-    metadata_path = root / "data/texts/metadata.json"
     process_reports(
         companies=COMPANIES.keys(),
         report_types=[
             "annual_reports",
             "financial_statements",
             "consolidated_reports",
-    ],
-    reports_path = reports_path,
-    texts_path = texts_path,
-    metadata_path = metadata_path,
-    root=root
-    )
+            ],
+            reports_path = root / "data/reports",
+            texts_path = root / "data/texts",
+            metadata_path = root / "data/texts/metadata.json",
+            root=root
+            )
+            
+    audio_embedding(model_path=root / "Models/Qwen3-Embedding-8B-4bit",
+                    video_path = root / "data/transcripts",
+                    metadata_path = root / "data/transcripts/metadata.json",
+                    save_path = root / "data/vectors/transcripts",
+                    chunk_length = 1400,
+                    overelap = 50)
     
+    text_embedding(texts_path = root / "data/texts",
+                   save_path = root / "data/vectors/texts", 
+                   model_path=root / "Models/Qwen3-Embedding-8B-4bit",
+                   chunk_length = 1400, 
+                   metadata_path = root / "data/texts/metadata.json",
+                   overlap = 50)
+
+
+
+
+
     
-    
-    model_path = root / "Models/Qwen3-Embedding-8B_MLX"
-    video_path = root / "data/transcripts"
-    metadata_path = video_path / "metadata.json"
-    save_path = root / "data/vectors/transcripts"
-    overelap = 50
-    chunk_length = 1400
-    audio_embedding(model_path = model_path,
-                    video_path =video_path,
-                    metadata_path = metadata_path,
-                    save_path = save_path,
-                    overelap = overelap,
-                    chunk_length = chunk_length)
-    
-    
-  
-    texts_path = root / "data/texts"
-    save_path = root / "data/vectors/texts"
-    model_path = root / "Models/Qwen3-Embedding-8B_MLX"
-    overelap = 50
-    chunk_length = 1400
-    text_embedding(texts_path=texts_path,
-                   save_path=save_path, 
-                   model_path=model_path,
-                   chunk_length=chunk_length, 
-                   overlap=overelap)
-    
+    print('Конец выполнения программы')

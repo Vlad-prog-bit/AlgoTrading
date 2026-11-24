@@ -108,5 +108,6 @@ def video_parser(topic = 'финансовая отчетность МСФО а�
                     json.dumps(records, ensure_ascii=False, indent=2),
                     encoding="utf-8",
                 )
-    except:
-        pass
+    except Exception as error:
+        print(f"Ошибка: {error}")
+        raise
